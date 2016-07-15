@@ -231,8 +231,8 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   </a>
   <nav id="menu">
     <ul>
-<li><a class="" href="banana.html">banana</a></li>
 <li><a class="active" href="index.html">index</a></li>
+<li><a class="" href="1-banana.html">banana</a></li>
 <li><a class="" href="nested/banana.html">nested/banana</a></li>
 </ul>
   </nav>
@@ -261,7 +261,8 @@ chimeces.com/markdown-folder-to-html</a></p>
 <li>Install <code>npm install -g markdown-folder-to-html</code></li>
 <li>🎉 <code>markdown-folder-to-html</code> and <code>open _docs/index.html</code></li>
 </ol>
-<h2>Custom HTML</h2>
+<h2>Conventions</h2>
+<h3>Custom HTML</h3>
 <p>The default HTML is extremely basic, but <a href="https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html">simple and
 pretty</a>,
 and is the one used in the docs.</p>
@@ -281,6 +282,27 @@ and is the one used in the docs.</p>
 <p>Create your own in your docs folder <code>docs/template.html</code> to use that one
 instead. Feel free to include styles inline or CSS files (since all will be
 copied to output).</p>
+<h3>Order</h3>
+<p>You may have noticed that files are sorted alphabetically. There's a little
+trick where if you name your folders/files with XX-folder/XX-file (XX being
+a number of 1+ digits) those numbers won't show up on the index of the pages,
+giving you the ability to organize files both in the filesystem and in the
+generated HTML site.</p>
+<p>Also, the root <code>index.md</code> file will always show up at the beginning of the
+index.</p>
+<h2>Why</h2>
+<p>After quite a lot of research, I couldn't find a simple and straightforward
+solution to generating html docs from a folder full of markdown files that
+relied on simple concepts. That is what this tool does:</p>
+<ul>
+<li>Simply copy everything over, and translate .md files to .html with a pure
+HTML layout (feel free to add CSS, or JS, or precompile those assets if you
+need to)</li>
+<li>.md links are rewritten to .html so that you can reference files with their
+real path on your markdown files and they'll work on the HTML version too.</li>
+<li>Provide sensible defaults and zero-configuration. JUST WORK.</li>
+<li>Use know abstraction, like the file system, pure HTML, etc</li>
+</ul>
 <h2>Links</h2>
 <ul>
 <li>https://github.com/joakin/markdown-folder-to-html</li>
