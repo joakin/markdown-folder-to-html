@@ -61,6 +61,9 @@ a number of 1+ digits) those numbers won't show up on the index of the pages,
 giving you the ability to organize files both in the filesystem and in the
 generated HTML site.
 
+Also, the root `index.md` file will always show up at the beginning of the
+index.
+
 ## Why
 
 After quite a lot of research, I couldn't find a simple and straightforward

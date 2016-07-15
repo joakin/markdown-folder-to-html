@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node cli.js",
-    "deploy": "cp README.md docs/index.md && npm start && gh-pages -d _docs",
+    "build": "cp README.md docs/index.md && npm start",
+    "deploy": "npm run build && gh-pages -d _docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

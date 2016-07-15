@@ -12,6 +12,8 @@ const writer = new commonmark.HtmlRenderer()
 const folder = 'docs'
 const output = '_docs'
 
+const precedence = ['index.md', 'README.md']
+
 if (!sh.test('-e', folder)) {
   console.error(`Folder ${folder} not found at ${process.cwd()}`)
   process.exit(1)
@@ -33,6 +35,7 @@ sh.cp('-R', folder + '/*', output)
 
 const all = sh.find(output)
 const mds = all.filter((f) => f.match(mdR))
+  .sort(sortByPrecedence)
 
 mds
   .map((f) => [f, page(nav(f, mds), md2html(sh.cat(f)))])
@@ -45,7 +48,7 @@ function nav (current, files) {
 ${files.map((f) => {
   const clazz = f === current ? 'active' : ''
   const href = mdUrl(path.relative(currentDir, f))
-  const text = removeOutput(f).replace(mdR, '')
+  const text = pathToText(f)
   return `<li><a class="${clazz}" href="${href}">${text}</a></li>`
 }).join('\n')}
 </ul>`
@@ -73,10 +76,38 @@ function md2html (cnts) {
   return writer.render(parsed)
 }
 
-function page (nav, content) {
-  return tpl.replace(navR, nav).replace(contentR, content)
+function page (navmenu, content) {
+  return tpl.replace(navR, navmenu).replace(contentR, content)
 }
 
 function mdUrl (file) {
   return file.replace(mdR, '.html')
+}
+
+function pathToText (file) {
+  return removeOutput(file)
+    // Replace start of folder or file digits \d+ and dash out
+    // 100-banana/10-apple/01-banana -> banana/apple/banana
+    .replace(/(^|\/)(\d+-)/g, '$1')
+    // Remove extension
+    .replace(mdR, '')
+    // Replace _ with spaces
+    .replace(/_/g, ' ')
+}
+
+function isPreferent (x) { return precedence.indexOf(removeOutput(x)) > -1 }
+
+function sortByPrecedence (a, b) {
+  const aPref = isPreferent(a)
+  const bPref = isPreferent(b)
+  return (
+    aPref && bPref ? strSort(a, b)
+      : (aPref ? -1
+        : (bPref ? 1
+          : strSort(a, b)))
+  )
+}
+
+function strSort (a, b) {
+  return (a < b ? -1 : (a > b ? 1 : 0))
 }
