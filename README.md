@@ -1,6 +1,6 @@
 # markdown-folder-to-html
 
-Simplest way zero-config to generate html docs from markdown files.
+Simplest zero-config way to generate html docs from markdown files.
 
 Copies `docs` to `_docs` and compiles markdown files to html using
 `docs/template.html`.
