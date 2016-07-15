@@ -14,6 +14,15 @@ img {
 	height: auto;
 }
 
+code, pre {
+  background-color: #fafafa;
+}
+code {
+  font-size: 0.95em;
+  display: inline-block;
+  padding: 0 0.2em;
+}
+
 /*
 Add transition to containers so they can push in and out.
  */
@@ -74,7 +83,7 @@ All anchors inside the menu should be styled like this.
  */
 #menu a {
 	display: block;
-	text-underline: none;
+	text-decoration: none;
 	color: #999;
 	padding: 0.2em 1em;
 }
@@ -96,16 +105,16 @@ Change color of the anchor links on hover/focus.
 /*
 This styles the selected menu item `<li>`.
  */
-#menu li.active,
+#menu li a.active,
 #menu li.heading {
-	background: lightgray;
+	background: rgba(0,0,0,0.05);
 }
 
 /*
 This styles a link within a selected menu item `<li>`.
  */
-#menu li.active a {
-	color: #888;
+#menu li a.active {
+	color: #222;
 }
 
 /*
@@ -135,8 +144,7 @@ small screens.
   padding: 1.6em 1.2em;
 }
 
-.menu-link:hover,
-.menu-link:focus {
+.menu-link:hover {
 	background: /*#f4f4f4 * 0.8*/#eee;
 }
 
