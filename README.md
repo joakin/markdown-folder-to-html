@@ -18,7 +18,11 @@ Copies `docs` to `_docs` and compiles markdown files to html using
 
 ## Custom HTML
 
-The default HTML is extremely basic:
+The default HTML is extremely basic, but [simple and
+pretty](https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html),
+and is the one used in the docs.
+
+This is the basic template that would work:
 
 ```html
 <!doctype html>
@@ -37,3 +41,8 @@ The default HTML is extremely basic:
 Create your own in your docs folder `docs/template.html` to use that one
 instead. Feel free to include styles inline or CSS files (since all will be
 copied to output).
+
+## Links
+
+* https://github.com/joakin/markdown-folder-to-html
+* https://npmjs.org/package/markdown-folder-to-html
