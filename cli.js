@@ -33,23 +33,35 @@ sh.mkdir('-p', output)
 sh.rm('-rf', output + '/*')
 sh.cp('-R', folder + '/*', output)
 
-const all = sh.find(output)
+sh.cd(output)
+const all = sh.find('*')
+
 const mds = all.filter((f) => f.match(mdR))
   .sort(sortByPrecedence)
 
+const groupedMds = mds.reduce(groupByPath, [])
+
 mds
-  .map((f) => [f, page(nav(f, mds), md2html(sh.cat(f)))])
+  .map((f) => [f, page(nav(f, groupedMds), md2html(sh.cat(f)))])
   .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p))
 
-function nav (current, files) {
-  const currentDir = path.dirname(current)
+function nav (current, groupedFiles) {
+  const currentDir = path.join(output, path.dirname(current))
 
   return `<ul>
-${files.map((f) => {
-  const clazz = f === current ? 'active' : ''
-  const href = mdUrl(path.relative(currentDir, f))
-  const text = pathToText(f)
-  return `<li><a class="${clazz}" href="${href}">${text}</a></li>`
+${groupedFiles.map((f) => {
+  if (Array.isArray(f)) {
+    // HEADING
+    return `<li class="heading">${pathToText(f[0])}</a></li>
+  ${nav(current, f[1])}`
+  } else {
+    //  LEAF
+    const clazz = f === current ? 'active' : ''
+    const href = mdUrl(path.relative(currentDir, path.join(output, f)))
+    const parts = f.split('/')
+    const text = pathToText(parts[parts.length - 1])
+    return `<li><a class="${clazz}" href="${href}">${text}</a></li>`
+  }
 }).join('\n')}
 </ul>`
 }
@@ -111,3 +123,22 @@ function sortByPrecedence (a, b) {
 function strSort (a, b) {
   return (a < b ? -1 : (a > b ? 1 : 0))
 }
+
+function groupByPath (grouped, value) {
+  const paths = value.split('/')
+  let tmp = grouped
+  paths.forEach((path, i) => {
+    if (i === paths.length - 1) {
+      tmp.push(value)
+    } else {
+      let ttmp = tmp.find((f) => Array.isArray(f) && f[0] === path)
+      if (!ttmp) {
+        ttmp = [path, []]
+        tmp.push(ttmp)
+      }
+      tmp = ttmp[1]
+    }
+  })
+  return grouped
+}
+
