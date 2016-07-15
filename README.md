@@ -10,6 +10,8 @@ chimeces.com/markdown-folder-to-html](http://chimeces.com/markdown-folder-to-htm
 
 ## Usage
 
+Requires node.js >= 6
+
 Given we have some docs:
 
 1. `mkdir -p docs`
