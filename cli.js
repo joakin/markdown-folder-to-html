@@ -103,8 +103,8 @@ function pathToText (file) {
     .replace(/(^|\/)(\d+-)/g, '$1')
     // Remove extension
     .replace(mdR, '')
-    // Replace _ with spaces
-    .replace(/_/g, ' ')
+    // Replace _ and - with spaces
+    .replace(/_|-/g, ' ')
 }
 
 function isPreferent (x) { return precedence.indexOf(removeOutput(x)) > -1 }
