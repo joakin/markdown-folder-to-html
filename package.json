@@ -1,0 +1,41 @@
+{
+  "name": "markdown-folder-to-html",
+  "version": "1.0.0",
+  "description": "Convert a folder with files and markdown documents to an HTML site",
+  "main": "cli.js",
+  "bin": {
+    "markdown-folder-to-html": "./cli.js"
+  },
+  "scripts": {
+    "start": "node cli.js",
+    "deploy": "gh-pages -d _docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joakin/markdown-folder-to-html.git"
+  },
+  "keywords": [
+    "markdown",
+    "md",
+    "html",
+    "static",
+    "site",
+    "folder",
+    "cli",
+    "simple"
+  ],
+  "author": "Joaquin Oltra <joaquin@chimeces.com> (http://chimeces.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joakin/markdown-folder-to-html/issues"
+  },
+  "homepage": "https://github.com/joakin/markdown-folder-to-html#readme",
+  "dependencies": {
+    "commonmark": "^0.25.1",
+    "shelljs": "^0.7.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^0.11.0"
+  }
+}
