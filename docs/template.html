@@ -3,6 +3,107 @@
 <head>
 
 <style>
+
+/*! ADAPTED
+Typeplate : Starter Kit
+URL ........... http://typeplate.com
+Version ....... 3.0.2
+Github ........ https://github.com/typeplate/starter-kit
+Authors ....... Dennis Gaebel (@gryghostvisuals) & Zachary Kain (@zakkain)
+License ....... Creative Commmons Attribution 3.0
+License URL ... https://github.com/typeplate/starter-kit/blob/master/license.txt
+*/
+
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  line-height: 1;
+  margin-top: 0;
+  color: #222;
+}
+
+blockquote + figcaption cite {
+  display: block;
+  font-size: inherit;
+  text-align: right;
+}
+
+body {
+  word-wrap: break-word;
+}
+
+pre code {
+  word-wrap: normal;
+}
+
+body {
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  color: #444;
+}
+
+h1 { font-size: 2em;    /* 2*16 = 32 */       }
+h2 { font-size: 1.5em;  /* 1.5*16 = 24 */     }
+h3 { font-size: 1.17em; /* 1.17*16 = 18.72 */ }
+h4 { font-size: 1em;    /* 1*16 = 16 */       }
+h5 { font-size: 0.83em; /* 0.83*16 = 13.28 */ }
+h6 { font-size: 0.75em; /* 0.75*16 = 12 */    }
+
+h1 { margin: 2.42424rem 0 1.454544rem; }
+h2 { margin: 2.0202rem 0 1.21212rem;  }
+h3 { margin: 1.61616rem 0 1rem; }
+h4 { margin: 1.21212rem 0 1; }
+h5 { margin: 0.80808rem 0; }
+h6 { margin: 0.70707rem 0; }
+
+p { margin: auto auto 1.5rem; }
+
+small {
+  font-size: 65%;
+}
+
+input,
+abbr,
+acronym,
+blockquote,
+code,
+kbd,
+q,
+samp,
+var {
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  white-space: pre;
+}
+
+pre code {
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+}
+
+code {
+  white-space: pre;
+  font-family: monospace;
+}
+
+abbr {
+  -webkit-font-variant: small-caps;
+  -moz-font-variant: small-caps;
+  -ms-font-variant: small-caps;
+  font-variant: small-caps;
+  font-weight: 600;
+  text-transform: lowercase;
+  color: gray;
+}
+
+abbr[title]:hover {
+  cursor: help;
+}
+
 /* FROM http://purecss.io/layouts/side-menu/  adapted to remove pure classes*/
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -81,6 +182,7 @@ appears on the left side of the page.
   background: #f4f4f4;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  font-size: 0.9em;
 }
 
 /*
@@ -89,14 +191,19 @@ All anchors inside the menu should be styled like this.
 #menu a {
   display: block;
   text-decoration: none;
-  color: #999;
-  padding: 0.2em 1em;
+  color: #888;
+  padding: 0.5em 0.5em;
 }
 
 #menu ul {
   list-style-type: none;
   padding: 0;
-  margin: 1em 0;
+  margin: 1em 0.5em;
+}
+#menu ul ul {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  border-left: 4px solid rgba(255,255,255,0.5);
 }
 
 /*
@@ -110,8 +217,7 @@ Change color of the anchor links on hover/focus.
 /*
 This styles the selected menu item `<li>`.
  */
-#menu li a.active,
-#menu li.heading {
+#menu li a.active {
   background: rgba(0,0,0,0.05);
 }
 
@@ -126,9 +232,10 @@ This styles a link within a selected menu item `<li>`.
 This styles the menu heading.
  */
 #menu li.heading {
-  font-size: 110%;
+  font-size: 0.9em;
+  text-transform: uppercase;
   color: #000;
-  margin: 0;
+  margin: 1em 0.5em 0;
 }
 
 /* -- Dynamic Button For Responsive Menu -------------------------------------*/
