@@ -235,19 +235,26 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   </nav>
   <article id="main" class="content">
     <h1>markdown-folder-to-html</h1>
-<p>Simplest way zero-config to generate html docs from markdown files.</p>
+<p>Simplest zero-config way to generate html docs from markdown files.</p>
 <p>Copies <code>docs</code> to <code>_docs</code> and compiles markdown files to html using
 <code>docs/template.html</code>.</p>
 <h2>Usage</h2>
+<p>Given we have some docs:</p>
 <ol>
-<li>Install <code>npm install -D markdown-folder-to-html</code> (You can install globally
-too if inclined)</li>
-<li>Add <code>docs</code> to npm scripts <code>{&quot;scripts&quot;: {&quot;docs&quot;: &quot;markdown-folder-to-html&quot;}}</code></li>
-<li>Create <code>docs</code></li>
 <li><code>mkdir -p docs</code></li>
 <li>Add some docs <code>echo &quot;**Banana**&quot; &gt; docs/banana.md</code></li>
 <li>Add some docs <code>echo &quot;**Apple**&quot; &gt; docs/index.md</code></li>
+</ol>
+<h3>In a project</h3>
+<ol>
+<li>Install <code>npm install -D markdown-folder-to-html</code></li>
+<li>Add <code>docs</code> to npm scripts <code>{&quot;scripts&quot;: {&quot;docs&quot;: &quot;markdown-folder-to-html&quot;}}</code></li>
 <li>🎉 <code>npm run docs</code> and <code>open _docs/index.html</code></li>
+</ol>
+<h3>Globally</h3>
+<ol>
+<li>Install <code>npm install -g markdown-folder-to-html</code></li>
+<li>🎉 <code>markdown-folder-to-html</code> and <code>open _docs/index.html</code></li>
 </ol>
 <h2>Custom HTML</h2>
 <p>The default HTML is extremely basic, but <a href="https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html">simple and
