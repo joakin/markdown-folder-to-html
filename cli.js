@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 const fs = require('fs')
+const url = require('url')
 const path = require('path')
 const sh = require('shelljs')
 const commonmark = require('commonmark')
@@ -55,7 +56,21 @@ function removeOutput (s) {
 }
 
 function md2html (cnts) {
-  return writer.render(reader.parse(cnts))
+  const parsed = reader.parse(cnts)
+  const walker = parsed.walker()
+  let event, node
+
+  while ((event = walker.next())) {
+    node = event.node
+    if (event.entering && node.type === 'link') {
+      let href = url.parse(node._destination)
+      if (!href.protocol && !href.host) {
+        // Local link
+        node._destination = mdUrl(node._destination)
+      }
+    }
+  }
+  return writer.render(parsed)
 }
 
 function page (nav, content) {
