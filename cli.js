@@ -10,6 +10,12 @@ const writer = new commonmark.HtmlRenderer()
 
 const folder = 'docs'
 const output = '_docs'
+
+if (!sh.test('-e', folder)) {
+  console.error(`Folder ${folder} not found at ${process.cwd()}`)
+  process.exit(1)
+}
+
 let template = path.join(folder, 'template.html')
 if (!sh.test('-e', template)) {
   template = path.join(__dirname, 'docs', 'template.html')
