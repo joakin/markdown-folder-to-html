@@ -7,14 +7,20 @@ Copies `docs` to `_docs` and compiles markdown files to html using
 
 ## Usage
 
-1. Install `npm install -D markdown-folder-to-html` (You can install globally
-   too if inclined)
-3. Add `docs` to npm scripts `{"scripts": {"docs": "markdown-folder-to-html"}}`
-2. Create `docs`
-  1. `mkdir -p docs`
-  2. Add some docs `echo "**Banana**" > docs/banana.md`
-  3. Add some docs `echo "**Apple**" > docs/index.md`
-5. 🎉 `npm run docs` and `open _docs/index.html`
+Given we have some docs:
+
+1. `mkdir -p docs`
+2. Add some docs `echo "**Banana**" > docs/banana.md`
+3. Add some docs `echo "**Apple**" > docs/index.md`
+
+### In a project
+1. Install `npm install -D markdown-folder-to-html`
+2. Add `docs` to npm scripts `{"scripts": {"docs": "markdown-folder-to-html"}}`
+3. 🎉 `npm run docs` and `open _docs/index.html`
+
+### Globally
+1. Install `npm install -g markdown-folder-to-html`
+2. 🎉 `markdown-folder-to-html` and `open _docs/index.html`
 
 ## Custom HTML
 
