@@ -10,7 +10,7 @@
     "start": "node cli.js",
     "build": "cp README.md docs/index.md && npm start",
     "deploy": "npm run build && gh-pages -d _docs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tape test/*.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "shelljs": "^0.7.0"
   },
   "devDependencies": {
-    "gh-pages": "^0.11.0"
+    "gh-pages": "^0.11.0",
+    "tape": "^4.6.0"
   }
 }
