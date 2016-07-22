@@ -29,6 +29,19 @@ Given we have some docs:
 
 ## Conventions
 
+### Input/Output folder
+
+You can pass an argument to the cli to change the input folder (by default
+`docs`). That will change the output folder too to `_FOLDERNAME` (by default
+`_docs`).
+
+```bash
+markdown-folder-to-html documentation
+# Outputs site to _documentation
+```
+
+If you want to change the output folder name, just `mv` it to something else.
+
 ### Custom HTML
 
 The default HTML is extremely basic, but [simple and

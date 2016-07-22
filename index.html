@@ -351,12 +351,12 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     <ul>
 <li><a class="active" href="index.html">index</a></li>
 <li><a class="" href="1-banana.html">banana</a></li>
-<li class="heading">nested</a></li>
-  <ul>
+<li class="heading">nested</li>
+<ul>
 <li><a class="" href="nested/another-banana.html">another banana</a></li>
 <li><a class="" href="nested/so_apple.html">so apple</a></li>
-<li class="heading">vegetables</a></li>
-  <ul>
+<li class="heading">vegetables</li>
+<ul>
 <li><a class="" href="nested/vegetables/others.html">others</a></li>
 </ul>
 </ul>
@@ -389,6 +389,14 @@ chimeces.com/markdown-folder-to-html</a></p>
 <li>🎉 <code>markdown-folder-to-html</code> and <code>open _docs/index.html</code></li>
 </ol>
 <h2>Conventions</h2>
+<h3>Input/Output folder</h3>
+<p>You can pass an argument to the cli to change the input folder (by default
+<code>docs</code>). That will change the output folder too to <code>_FOLDERNAME</code> (by default
+<code>_docs</code>).</p>
+<pre><code class="language-bash">markdown-folder-to-html documentation
+# Outputs site to _documentation
+</code></pre>
+<p>If you want to change the output folder name, just <code>mv</code> it to something else.</p>
 <h3>Custom HTML</h3>
 <p>The default HTML is extremely basic, but <a href="https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html">simple and
 pretty</a>,
