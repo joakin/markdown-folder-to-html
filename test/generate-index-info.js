@@ -13,7 +13,7 @@ const files = [
 const grouped = files.reduce(groupByPath, [])
 
 // Generate info with the first file as the current one
-const treeInfoFirstIsCurrent = generateIndexInfo(files[0], grouped, '_docs')
+const treeInfoFirstIsCurrent = generateIndexInfo(files[0], grouped)
 
 test('current file has active property to true', (t) => {
   t.ok(treeInfoFirstIsCurrent[0].active)
@@ -63,7 +63,7 @@ test('whole structure matches (for reference)', (t) => {
 })
 
 test('properly generates the hrefs as relative paths when current file is a nested one', (t) => {
-  const treeInfoNestedIsCurrent = generateIndexInfo(files[2], grouped, '_docs')
+  const treeInfoNestedIsCurrent = generateIndexInfo(files[2], grouped)
   t.equal(treeInfoNestedIsCurrent[0].href, '../index.html')
   t.equal(treeInfoNestedIsCurrent[1].href, '../1-banana.html')
   t.equal(treeInfoNestedIsCurrent[2][1][1].href, 'so_apple.html')
