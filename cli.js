@@ -69,6 +69,8 @@ mds
   })
   .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p))
 
+sh.rm('-r', '**/*.md')
+
 function usage (error) {
   console.log(`
 Usage:
