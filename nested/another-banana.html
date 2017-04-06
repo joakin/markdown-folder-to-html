@@ -200,9 +200,10 @@ All anchors inside the menu should be styled like this.
 #menu a {
   display: block;
   text-decoration: none;
-  color: #888;
+  color: #2483cc;
   padding: 0.5em 0.5em;
 }
+
 #menu a:first-letter {
   text-transform: capitalize;
 }
@@ -247,8 +248,11 @@ This styles the menu heading.
   font-size: 0.9em;
   text-transform: uppercase;
   color: #000;
+}
+#menu ul ul li.heading {
   margin: 1em 0.5em 0;
 }
+#menu li.heading a { color: #0c68af; }
 
 /* -- Dynamic Button For Responsive Menu -------------------------------------*/
 /*
@@ -354,9 +358,10 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     <ul>
 <li><a class="" href="../index.html">index</a></li>
 <li><a class="" href="../1-banana.html">banana</a></li>
-<li class="heading">nested</li>
+<li class="heading"><a class="" href="index.html">nested</a></li>
 <ul>
 <li><a class="active" href="another-banana.html">another banana</a></li>
+
 <li><a class="" href="so_apple.html">so apple</a></li>
 <li class="heading">vegetables</li>
 <ul>
