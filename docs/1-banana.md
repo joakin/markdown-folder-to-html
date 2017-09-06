@@ -9,3 +9,6 @@ And GFM features like tables:
 | Hello | World |
 | :--   | --:   |
 | Yes   | 1     |
+
+
+And automatic links https://example.com
