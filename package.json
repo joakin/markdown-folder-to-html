@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/joakin/markdown-folder-to-html#readme",
   "dependencies": {
+    "markdown-it": "^8.4.0",
     "shelljs": "^0.7.8"
   },
   "devDependencies": {
