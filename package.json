@@ -10,6 +10,7 @@
     "start": "node cli.js",
     "build": "cp README.md docs/index.md && npm start",
     "deploy": "npm run build && gh-pages -d _docs",
+    "format": "prettier --write 'lib/**/*.js'",
     "test": "tape test/*.js | tap-dot"
   },
   "repository": {
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
+    "prettier": "^1.8.2",
     "tap-dot": "^1.0.5",
     "tape": "^4.8.0"
   }
