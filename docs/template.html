@@ -425,6 +425,7 @@
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -441,6 +442,9 @@
       <!--CONTENT-->
     </article>
   </div>
+  <script>
+    var siteData = <!--SITEDATA-->;
+  </script>
   <script>
     // FROM http://purecss.io/js/ui.js
     (function (window, document) {
@@ -476,6 +480,55 @@
         toggleClass(menu, active);
         toggleClass(menuLink, active);
       };
+
+      /**
+       * search
+       */
+
+      // via: https://css-tricks.com/snippets/javascript/get-url-variables/
+      function getQueryVariable(variable)
+      {
+         var query = window.location.search.substring(1);
+         var vars = query.split("&");
+         for (var i=0;i<vars.length;i++) {
+           var pair = vars[i].split("=");
+           if(pair[0] == variable){return pair[1];}
+         }
+         return(false);
+      }
+
+      function htmlToElement(html) {
+          var template = document.createElement('template');
+          html = html.trim(); // Never return a text node of whitespace as the result
+          template.innerHTML = html;
+          return template.content.firstChild;
+      }
+
+      const displayResult = function(result){
+        document.getElementById('searchResults').innerHtml = '';
+        result.map(function(el){
+          var li = htmlToElement('<li><a href="'+el.doc.url+'">'+el.doc.url+'</a></li>')
+          document.getElementById('searchResults').appendChild(li);
+        });
+      }
+
+      var searchIndex = elasticlunr(function () {
+        this.addField('content');
+        this.addField('url');
+        this.setRef('id');
+      });
+
+      siteData.map(function(el){
+        searchIndex.addDoc(el);
+      });
+
+      var searchTerm = getQueryVariable('search').replace(/\+/g, " ");
+      searchTerm = decodeURIComponent(searchTerm);
+      if(searchTerm){
+        document.getElementById('searchTerm').value = searchTerm;
+        var result = searchIndex.search(searchTerm);
+        displayResult(result);
+      }
 
     }(this, this.document));
   </script>

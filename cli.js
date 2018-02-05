@@ -19,6 +19,7 @@ const [docsFolder, ...argsRest] = process.argv.slice(2);
 const folder = docsFolder || "docs";
 const output = `_${folder}`;
 const templateFilename = "template.html";
+const sitedataFilename = "site-data.json";
 const preferences = ["index.md", "README.md"];
 
 // Guards
@@ -64,11 +65,26 @@ const mds = all
 
 const groupedMds = mds.reduce(groupByPath, []);
 
+// build siteData json
+let siteData = [];
+mds
+  .map(f => {
+    // strip tags or else it doesn't seem to index correctly
+    const contentForJson = md2html(sh.cat(f)).replace(/(<([^>]+)>)/ig,"");;
+    const pageData = {
+      id: siteData.length,
+      url: mdUrl(f),
+      content: contentForJson
+    };
+    siteData.push(pageData);
+  });
+
+// build pages
 mds
   .map(f => {
     const navHtml = renderNav(generateIndexInfo(f, groupedMds, output));
     const contentHtml = md2html(sh.cat(f));
-    return [f, page(tpl, navHtml, contentHtml)];
+    return [f, page(tpl, navHtml, contentHtml, JSON.stringify(siteData, null, 4))];
   })
   .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p));
 
