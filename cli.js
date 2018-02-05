@@ -19,7 +19,6 @@ const [docsFolder, ...argsRest] = process.argv.slice(2);
 const folder = docsFolder || "docs";
 const output = `_${folder}`;
 const templateFilename = "template.html";
-const sitedataFilename = "site-data.json";
 const preferences = ["index.md", "README.md"];
 
 // Guards
