@@ -267,12 +267,21 @@
       font-size: 0.9em;
     }
 
+    a,
+    a * {
+      text-decoration: none;
+      color: #2483cc;
+    }
+
+    a:visited {
+      text-decoration: none;
+      color: #2483cc;
+    }
+
     /* All anchors inside the menu should be styled like this. */
 
     #menu a {
       display: block;
-      text-decoration: none;
-      color: #2483cc;
       padding: 0.5em 0.5em;
     }
 
@@ -319,8 +328,9 @@
       color: #000;
     }
 
-    #menu ul ul li.heading {
-      margin: 1em 0.5em 0;
+    #menu li.heading>* {
+      padding: 0.5em;
+      display: block;
     }
 
     #menu li.heading a {
@@ -352,8 +362,8 @@
     }
 
     .menu-link:hover {
-      background: #eee/* #f4f4f4 * 0.8 */
-      ;
+      background: /* #f4f4f4 * 0.8 */
+      #eee;
     }
 
     .menu-link span {
@@ -438,12 +448,16 @@
       <ul>
 <li><a class="active" href="index.html">index</a></li>
 <li><a class="" href="1-banana.html">banana</a></li>
+<li class="heading"><span>a folder</span></li>
+<ul>
+<li><a class="" href="a-folder/with-a-post.html">with a post</a></li>
+</ul>
 <li class="heading"><a class="" href="nested/index.html">nested</a></li>
 <ul>
 <li><a class="" href="nested/another-banana.html">another banana</a></li>
 
 <li><a class="" href="nested/so_apple.html">so apple</a></li>
-<li class="heading">vegetables</li>
+<li class="heading"><span>vegetables</span></li>
 <ul>
 <li><a class="" href="nested/vegetables/others.html">others</a></li>
 </ul>
