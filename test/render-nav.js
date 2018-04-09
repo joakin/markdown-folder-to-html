@@ -26,7 +26,7 @@ test("renders a heading and nested items when index item is array", t => {
     ]),
     `<ul>
 <li><a class="active" href="bananalink">banana</a></li>
-<li class="heading">headingtext</li>
+<li class="heading"><span>headingtext</span></li>
 <ul>
 <li><a class="" href="applelink">apple</a></li>
 </ul>
