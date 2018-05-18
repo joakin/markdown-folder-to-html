@@ -86,7 +86,7 @@ mds
   .map((f, i) => {
     const navHtml = renderNav(generateIndexInfo(f, groupedMds, output));
     const contentHtml = contentHtmlArr[i];
-    const siteDataString = JSON.stringify(siteDataArr[i]);
+    const siteDataString = JSON.stringify(siteDataArr, null, 2);
     return [f, page(tpl, navHtml, contentHtml, siteDataString)];
   })
   .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p));
