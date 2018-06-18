@@ -63,21 +63,18 @@ const mds = all
   .filter(f => f.match(mdR))
   .sort(sortByPreferences.bind(null, preferences));
 
-const contentHtmlArr = mds.reduce((arr, f, i) => {
-  arr.push(md2html(sh.cat(f)));
-  return arr;
-}, []);
+const contentsHtml = mds.map((file, i) => md2html(sh.cat(file)), []);
 
 const siteDataArr = mds.reduce((arr, f, i) => {
   // strip tags or else it doesn't seem to index correctly
-  const contentForJson = contentHtmlArr[i].replace(/(<([^>]+)>)/ig,"");;
+  const contentForJson = contentsHtml[i].replace(/(<([^>]+)>)/gi, "");
   const pageDataArr = {
     id: i,
     url: mdUrl(f),
     content: contentForJson
   };
   arr.push(pageDataArr);
-  return arr
+  return arr;
 }, []);
 
 const groupedMds = mds.reduce(groupByPath, []);
@@ -85,7 +82,7 @@ const groupedMds = mds.reduce(groupByPath, []);
 mds
   .map((f, i) => {
     const navHtml = renderNav(generateIndexInfo(f, groupedMds, output));
-    const contentHtml = contentHtmlArr[i];
+    const contentHtml = contentsHtml[i];
     const siteDataString = JSON.stringify(siteDataArr, null, 2);
     return [f, page(tpl, navHtml, contentHtml, siteDataString)];
   })
