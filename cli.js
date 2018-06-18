@@ -19,6 +19,7 @@ const [docsFolder, ...argsRest] = process.argv.slice(2);
 const folder = docsFolder || "docs";
 const output = `_${folder}`;
 const templateFilename = "template.html";
+const contentsFilename = "contents.json";
 const preferences = ["index.md", "README.md"];
 
 // Guards
@@ -59,18 +60,34 @@ sh.cd(output);
 const all = sh.find("*");
 
 const mds = all
-  .filter(f => f.match(mdR))
-  .sort(sortByPreferences.bind(null, preferences));
+  .filter(file => file.match(mdR))
+  .sort(sortByPreferences.bind(null, preferences))
+  .map(file => {
+    const content = sh.cat(file);
+    return {
+      path: file,
+      url: mdUrl(file),
+      content,
+      html: md2html(content)
+    };
+  });
 
-const groupedMds = mds.reduce(groupByPath, []);
+const groupedMds = mds.reduce(
+  (grouped, value) => groupByPath(grouped, value.path),
+  []
+);
 
-mds
-  .map(f => {
-    const navHtml = renderNav(generateIndexInfo(f, groupedMds, output));
-    const contentHtml = md2html(sh.cat(f));
-    return [f, page(tpl, navHtml, contentHtml)];
-  })
-  .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p));
+mds.forEach(({ path, url, html }) => {
+  const navHtml = renderNav(generateIndexInfo(path, groupedMds, output));
+  const pageHtml = page(tpl, navHtml, html);
+  fs.writeFileSync(url, pageHtml);
+});
+
+const contentsJSON = {
+  paths: groupedMds,
+  contents: mds.map((md, i) => ({ ...md, id: i }))
+};
+fs.writeFileSync(contentsFilename, JSON.stringify(contentsJSON, null, 2));
 
 sh.rm("-r", "**/*.md");
 
