@@ -17,3 +17,13 @@ test("Changes instances of <!--CONTENT--> with the page content", t => {
   );
   t.end();
 });
+
+test("Changes instances of <!--CONTENT--> with the page content", t => {
+  const content =
+    "<p>Hello</p>\n<pre><code>'$KEY$' =&gt; $VALUE$,\n</code></pre>\n<p>This breaks down the rendering?</p>\n";
+  t.equal(
+    page("<!--NAV--> banana <!--CONTENT--> apple", "nav", content),
+    `nav banana ${content} apple`
+  );
+  t.end();
+});
