@@ -19,6 +19,7 @@ const [docsFolder, ...argsRest] = process.argv.slice(2);
 const folder = docsFolder || "docs";
 const output = `_${folder}`;
 const templateFilename = "template.html";
+const sitedataFilename = "sitedata.json";
 const preferences = ["index.md", "README.md"];
 
 // Guards
@@ -62,13 +63,31 @@ const mds = all
   .filter(f => f.match(mdR))
   .sort(sortByPreferences.bind(null, preferences));
 
+const contentHtmlArr = mds.reduce((arr, f, i) => {
+  arr.push(md2html(sh.cat(f)));
+  return arr;
+}, []);
+
+const siteDataArr = mds.reduce((arr, f, i) => {
+  // strip tags or else it doesn't seem to index correctly
+  const contentForJson = contentHtmlArr[i].replace(/(<([^>]+)>)/ig,"");;
+  const pageDataArr = {
+    id: i,
+    url: mdUrl(f),
+    content: contentForJson
+  };
+  arr.push(pageDataArr);
+  return arr
+}, []);
+
 const groupedMds = mds.reduce(groupByPath, []);
 
 mds
-  .map(f => {
+  .map((f, i) => {
     const navHtml = renderNav(generateIndexInfo(f, groupedMds, output));
-    const contentHtml = md2html(sh.cat(f));
-    return [f, page(tpl, navHtml, contentHtml)];
+    const contentHtml = contentHtmlArr[i];
+    const siteDataString = JSON.stringify(siteDataArr, null, 2);
+    return [f, page(tpl, navHtml, contentHtml, siteDataString)];
   })
   .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p));
 
