@@ -1,0 +1,90 @@
+{
+  "paths": [
+    "index.md",
+    "1-banana.md",
+    [
+      "a-folder",
+      [
+        "a-folder/with-a-post.md"
+      ]
+    ],
+    [
+      "nested",
+      [
+        "nested/another-banana.md",
+        "nested/index.md",
+        "nested/so_apple.md",
+        [
+          "vegetables",
+          [
+            "nested/vegetables/others.md"
+          ]
+        ]
+      ]
+    ],
+    [
+      "tests",
+      [
+        "tests/issue16.md"
+      ]
+    ]
+  ],
+  "contents": [
+    {
+      "path": "index.md",
+      "url": "index.html",
+      "content": "# markdown-folder-to-html\n\nSimplest zero-config way to generate html docs from markdown files.\n\nCopies `docs` to `_docs` and compiles markdown files to html using\n`docs/template.html`.\n\n[Live example at chimeces.com/markdown-folder-to-html](http://chimeces.com/markdown-folder-to-html/)\n\n## Usage\n\nRequires node.js >= 6\n\nGiven we have some docs:\n\n1. `mkdir -p docs`\n2. Add some docs `echo \"**Banana**\" > docs/banana.md`\n3. Add some docs `echo \"**Apple**\" > docs/index.md`\n\n### In a project\n\n1. Install `npm install -D markdown-folder-to-html`\n2. Add `docs` to npm scripts `{\"scripts\": {\"docs\": \"markdown-folder-to-html\"}}`\n3. 🎉 `npm run docs` and `open _docs/index.html`\n\n### Globally\n\n1. Install `npm install -g markdown-folder-to-html`\n2. 🎉 `markdown-folder-to-html` and `open _docs/index.html`\n\n## Conventions\n\n### Input/Output folder\n\nYou can pass an argument to the cli to change the input folder (by default\n`docs`). That will change the output folder too to `_FOLDERNAME` (by default\n`_docs`).\n\n```bash\nmarkdown-folder-to-html documentation\n# Outputs site to _documentation\n```\n\nIf you want to change the output folder name, just `mv` it to something else.\n\n### Custom HTML\n\nThe default HTML is extremely basic, but\n[simple and pretty](https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html),\nand is the one used in the docs.\n\nThis is the basic template that would work:\n\n```html\n<!doctype html>\n<html>\n<body>\n<nav>\n\t<!--NAV-->\n</nav>\n<article>\n\t<!--CONTENT-->\n</article>\n</body>\n</html>\n```\n\nCreate your own in your docs folder `docs/template.html` to use that one\ninstead. Feel free to include styles inline or CSS files (since all will be\ncopied to output).\n\n### Order\n\nYou may have noticed that files are sorted alphabetically. There's a little\ntrick where if you name your folders/files with XX-folder/XX-file (XX being a\nnumber of 1+ digits) those numbers won't show up on the index of the pages,\ngiving you the ability to organize files both in the filesystem and in the\ngenerated HTML site.\n\nAlso, the root `index.md` file will always show up at the beginning of the\nindex.\n\n### Site contents and information for custom templates\n\nIf you want to do things with a custom template HTML you need the information of\nthe site. This will allow you to do things in the front-end UI, like adding\nsearch to the static site with lunrjs or other things like adding buttons for\nthe next/previous article.\n\nFor this use cases, you will see a `contents.json` generated in your output\nfolder. It contains the hierarchical paths of the files, and the contents with\nthe original markup, the HTML, the original path and the transformed URL:\n\n```json\n{\n  \"paths\": [\n    \"index.md\",\n    \"1-banana.md\",\n    [\"a-folder\", [\"a-folder/with-a-post.md\"]]\n    //...\n  ],\n  \"contents\": [\n    {\n      \"path\": \"index.md\",\n      \"url\": \"index.html\",\n      \"content\": \"# markdown-folder-to-html\\n\\nSimplest zero-config ...\",\n      \"html\": \"<h1>markdown-folder-to-html</h1>\\n<p>Simplest zero-config ...\",\n      \"id\": 0\n    },\n    {\n      \"path\": \"1-banana.md\",\n      \"url\": \"1-banana.html\",\n      \"content\": \"**Banana**\\n\\nYou can have [nested folders](./n...\",\n      \"html\": \"<p><strong>Banana</strong></p>\\n<p>You can have <a h...\",\n      \"id\": 1\n    }\n    //...\n  ]\n}\n```\n\nSee the [JSON file](https://chimeces.com/markdown-folder-to-html/contents.json)\nof our documentation site for an example.\n\nYou can then fetch this JSON file with JS from your template, and go crazy with\nit, processing the contents to adapt them for search, looking for the\nprevious/next articles to link to them, etc.\n\nIf you have working examples of a template that does something interesting,\nplease let me know and I'll list them here!\n\n## Why\n\nAfter quite a lot of research, I couldn't find a simple and straightforward\nsolution to generating html docs from a folder full of markdown files that\nrelied on simple concepts. That is what this tool does:\n\n* Simply copy everything over, and translate .md files to .html with a pure HTML\n  layout (feel free to add CSS, or JS, or precompile those assets if you need\n  to)\n* .md links are rewritten to .html so that you can reference files with their\n  real path on your markdown files and they'll work on the HTML version too.\n* Provide sensible defaults and zero-configuration. JUST WORK.\n* Use know abstraction, like the file system, pure HTML, etc\n\n## Links\n\n* https://github.com/joakin/markdown-folder-to-html\n* https://npmjs.org/package/markdown-folder-to-html\n",
+      "html": "<h1>markdown-folder-to-html</h1>\n<p>Simplest zero-config way to generate html docs from markdown files.</p>\n<p>Copies <code>docs</code> to <code>_docs</code> and compiles markdown files to html using\n<code>docs/template.html</code>.</p>\n<p><a href=\"http://chimeces.com/markdown-folder-to-html/\">Live example at chimeces.com/markdown-folder-to-html</a></p>\n<h2>Usage</h2>\n<p>Requires node.js &gt;= 6</p>\n<p>Given we have some docs:</p>\n<ol>\n<li><code>mkdir -p docs</code></li>\n<li>Add some docs <code>echo &quot;**Banana**&quot; &gt; docs/banana.md</code></li>\n<li>Add some docs <code>echo &quot;**Apple**&quot; &gt; docs/index.md</code></li>\n</ol>\n<h3>In a project</h3>\n<ol>\n<li>Install <code>npm install -D markdown-folder-to-html</code></li>\n<li>Add <code>docs</code> to npm scripts <code>{&quot;scripts&quot;: {&quot;docs&quot;: &quot;markdown-folder-to-html&quot;}}</code></li>\n<li>🎉 <code>npm run docs</code> and <code>open _docs/index.html</code></li>\n</ol>\n<h3>Globally</h3>\n<ol>\n<li>Install <code>npm install -g markdown-folder-to-html</code></li>\n<li>🎉 <code>markdown-folder-to-html</code> and <code>open _docs/index.html</code></li>\n</ol>\n<h2>Conventions</h2>\n<h3>Input/Output folder</h3>\n<p>You can pass an argument to the cli to change the input folder (by default\n<code>docs</code>). That will change the output folder too to <code>_FOLDERNAME</code> (by default\n<code>_docs</code>).</p>\n<pre><code class=\"language-bash\">markdown-folder-to-html documentation\n# Outputs site to _documentation\n</code></pre>\n<p>If you want to change the output folder name, just <code>mv</code> it to something else.</p>\n<h3>Custom HTML</h3>\n<p>The default HTML is extremely basic, but\n<a href=\"https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html\">simple and pretty</a>,\nand is the one used in the docs.</p>\n<p>This is the basic template that would work:</p>\n<pre><code class=\"language-html\">&lt;!doctype html&gt;\n&lt;html&gt;\n&lt;body&gt;\n&lt;nav&gt;\n\t&lt;!--NAV--&gt;\n&lt;/nav&gt;\n&lt;article&gt;\n\t&lt;!--CONTENT--&gt;\n&lt;/article&gt;\n&lt;/body&gt;\n&lt;/html&gt;\n</code></pre>\n<p>Create your own in your docs folder <code>docs/template.html</code> to use that one\ninstead. Feel free to include styles inline or CSS files (since all will be\ncopied to output).</p>\n<h3>Order</h3>\n<p>You may have noticed that files are sorted alphabetically. There’s a little\ntrick where if you name your folders/files with XX-folder/XX-file (XX being a\nnumber of 1+ digits) those numbers won’t show up on the index of the pages,\ngiving you the ability to organize files both in the filesystem and in the\ngenerated HTML site.</p>\n<p>Also, the root <code>index.md</code> file will always show up at the beginning of the\nindex.</p>\n<h3>Site contents and information for custom templates</h3>\n<p>If you want to do things with a custom template HTML you need the information of\nthe site. This will allow you to do things in the front-end UI, like adding\nsearch to the static site with lunrjs or other things like adding buttons for\nthe next/previous article.</p>\n<p>For this use cases, you will see a <code>contents.json</code> generated in your output\nfolder. It contains the hierarchical paths of the files, and the contents with\nthe original markup, the HTML, the original path and the transformed URL:</p>\n<pre><code class=\"language-json\">{\n  &quot;paths&quot;: [\n    &quot;index.md&quot;,\n    &quot;1-banana.md&quot;,\n    [&quot;a-folder&quot;, [&quot;a-folder/with-a-post.md&quot;]]\n    //...\n  ],\n  &quot;contents&quot;: [\n    {\n      &quot;path&quot;: &quot;index.md&quot;,\n      &quot;url&quot;: &quot;index.html&quot;,\n      &quot;content&quot;: &quot;# markdown-folder-to-html\\n\\nSimplest zero-config ...&quot;,\n      &quot;html&quot;: &quot;&lt;h1&gt;markdown-folder-to-html&lt;/h1&gt;\\n&lt;p&gt;Simplest zero-config ...&quot;,\n      &quot;id&quot;: 0\n    },\n    {\n      &quot;path&quot;: &quot;1-banana.md&quot;,\n      &quot;url&quot;: &quot;1-banana.html&quot;,\n      &quot;content&quot;: &quot;**Banana**\\n\\nYou can have [nested folders](./n...&quot;,\n      &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Banana&lt;/strong&gt;&lt;/p&gt;\\n&lt;p&gt;You can have &lt;a h...&quot;,\n      &quot;id&quot;: 1\n    }\n    //...\n  ]\n}\n</code></pre>\n<p>See the <a href=\"https://chimeces.com/markdown-folder-to-html/contents.json\">JSON file</a>\nof our documentation site for an example.</p>\n<p>You can then fetch this JSON file with JS from your template, and go crazy with\nit, processing the contents to adapt them for search, looking for the\nprevious/next articles to link to them, etc.</p>\n<p>If you have working examples of a template that does something interesting,\nplease let me know and I’ll list them here!</p>\n<h2>Why</h2>\n<p>After quite a lot of research, I couldn’t find a simple and straightforward\nsolution to generating html docs from a folder full of markdown files that\nrelied on simple concepts. That is what this tool does:</p>\n<ul>\n<li>Simply copy everything over, and translate .md files to .html with a pure HTML\nlayout (feel free to add CSS, or JS, or precompile those assets if you need\nto)</li>\n<li>.md links are rewritten to .html so that you can reference files with their\nreal path on your markdown files and they’ll work on the HTML version too.</li>\n<li>Provide sensible defaults and zero-configuration. JUST WORK.</li>\n<li>Use know abstraction, like the file system, pure HTML, etc</li>\n</ul>\n<h2>Links</h2>\n<ul>\n<li><a href=\"https://github.com/joakin/markdown-folder-to-html\">https://github.com/joakin/markdown-folder-to-html</a></li>\n<li><a href=\"https://npmjs.org/package/markdown-folder-to-html\">https://npmjs.org/package/markdown-folder-to-html</a></li>\n</ul>\n",
+      "id": 0
+    },
+    {
+      "path": "1-banana.md",
+      "url": "1-banana.html",
+      "content": "**Banana**\n\nYou can have [nested folders](./nested/index.md)\n\nWe also have [another banana](./nested/another-banana.md)\n\nAnd GFM features like tables:\n\n| Hello | World |\n| :--   | --:   |\n| Yes   | 1     |\n\n\nAnd automatic links https://example.com",
+      "html": "<p><strong>Banana</strong></p>\n<p>You can have <a href=\"./nested/index.html\">nested folders</a></p>\n<p>We also have <a href=\"./nested/another-banana.html\">another banana</a></p>\n<p>And GFM features like tables:</p>\n<table>\n<thead>\n<tr>\n<th style=\"text-align:left\">Hello</th>\n<th style=\"text-align:right\">World</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:left\">Yes</td>\n<td style=\"text-align:right\">1</td>\n</tr>\n</tbody>\n</table>\n<p>And automatic links <a href=\"https://example.com\">https://example.com</a></p>\n",
+      "id": 1
+    },
+    {
+      "path": "a-folder/with-a-post.md",
+      "url": "a-folder/with-a-post.html",
+      "content": "This is a test post!!\n\n| Hi| Ho|\n|---|---|\n|let's|go|\n\nThis has a [code inside the `the link`](#woot). This is madness.\n\n![be happy](./tenor.gif)",
+      "html": "<p>This is a test post!!</p>\n<table>\n<thead>\n<tr>\n<th>Hi</th>\n<th>Ho</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>let’s</td>\n<td>go</td>\n</tr>\n</tbody>\n</table>\n<p>This has a <a href=\"#woot\">code inside the <code>the link</code></a>. This is madness.</p>\n<p><img src=\"./tenor.gif\" alt=\"be happy\"></p>\n",
+      "id": 2
+    },
+    {
+      "path": "nested/another-banana.md",
+      "url": "nested/another-banana.html",
+      "content": "# Nested banana\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non luctus\njusto. Praesent a molestie quam. Quisque pulvinar arcu nec sem tincidunt, in\ndictum lectus eleifend. Quisque tincidunt tristique tortor a imperdiet. Proin\npharetra scelerisque venenatis. Donec tortor ante, aliquam eu lacinia eu,\ngravida sed neque. Sed vel felis facilisis, eleifend nisl sit amet, convallis\nturpis. Donec ultrices leo ac eros tristique, vel condimentum lorem interdum.\n\nAenean vel aliquet orci. Duis et risus ut metus accumsan consectetur. Nullam\nquis nisi facilisis, consectetur metus vitae, tempus purus. Fusce iaculis\ntincidunt nibh, in ornare quam congue vitae. Nulla commodo nulla eget ornare\nfaucibus. Sed a est eget sapien lobortis sollicitudin. Aliquam aliquam nisl id\ngravida dignissim. Sed placerat leo vitae eleifend aliquam. Sed facilisis\nultrices condimentum.\n\nPellentesque sed mollis eros. Pellentesque mollis ac ex ut tincidunt. Cras quis\nsuscipit tellus. Praesent vehicula vehicula sagittis. Ut id libero dui. Nunc\negestas ac urna vitae cursus. Nulla dictum sed est ut bibendum. Nam in magna\npulvinar, tincidunt felis ut, pulvinar erat. Cras velit leo, molestie eu ex\nvitae, interdum iaculis nisi. Cras congue felis vitae interdum fermentum. Donec\npulvinar nunc metus, a vulputate lorem suscipit in. Praesent semper felis ut\nenim suscipit, in pretium lectus consectetur. Curabitur sed leo suscipit augue\nconsequat finibus sit amet id lorem. Aliquam erat volutpat. Integer quis nulla\ntortor. Proin et aliquet sapien.\n\nNunc ac imperdiet tortor. Nunc justo magna, consequat sed dignissim vel,\nfermentum a nulla. Pellentesque sed fringilla velit, eu varius risus. Nam\nelementum justo finibus auctor tristique. Ut bibendum enim vitae elit aliquam\nvestibulum. Pellentesque varius eget sem quis fringilla. Nam vulputate purus\nvel rhoncus laoreet. Nam fermentum elementum diam, sed molestie purus. \n",
+      "html": "<h1>Nested banana</h1>\n<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non luctus\njusto. Praesent a molestie quam. Quisque pulvinar arcu nec sem tincidunt, in\ndictum lectus eleifend. Quisque tincidunt tristique tortor a imperdiet. Proin\npharetra scelerisque venenatis. Donec tortor ante, aliquam eu lacinia eu,\ngravida sed neque. Sed vel felis facilisis, eleifend nisl sit amet, convallis\nturpis. Donec ultrices leo ac eros tristique, vel condimentum lorem interdum.</p>\n<p>Aenean vel aliquet orci. Duis et risus ut metus accumsan consectetur. Nullam\nquis nisi facilisis, consectetur metus vitae, tempus purus. Fusce iaculis\ntincidunt nibh, in ornare quam congue vitae. Nulla commodo nulla eget ornare\nfaucibus. Sed a est eget sapien lobortis sollicitudin. Aliquam aliquam nisl id\ngravida dignissim. Sed placerat leo vitae eleifend aliquam. Sed facilisis\nultrices condimentum.</p>\n<p>Pellentesque sed mollis eros. Pellentesque mollis ac ex ut tincidunt. Cras quis\nsuscipit tellus. Praesent vehicula vehicula sagittis. Ut id libero dui. Nunc\negestas ac urna vitae cursus. Nulla dictum sed est ut bibendum. Nam in magna\npulvinar, tincidunt felis ut, pulvinar erat. Cras velit leo, molestie eu ex\nvitae, interdum iaculis nisi. Cras congue felis vitae interdum fermentum. Donec\npulvinar nunc metus, a vulputate lorem suscipit in. Praesent semper felis ut\nenim suscipit, in pretium lectus consectetur. Curabitur sed leo suscipit augue\nconsequat finibus sit amet id lorem. Aliquam erat volutpat. Integer quis nulla\ntortor. Proin et aliquet sapien.</p>\n<p>Nunc ac imperdiet tortor. Nunc justo magna, consequat sed dignissim vel,\nfermentum a nulla. Pellentesque sed fringilla velit, eu varius risus. Nam\nelementum justo finibus auctor tristique. Ut bibendum enim vitae elit aliquam\nvestibulum. Pellentesque varius eget sem quis fringilla. Nam vulputate purus\nvel rhoncus laoreet. Nam fermentum elementum diam, sed molestie purus.</p>\n",
+      "id": 3
+    },
+    {
+      "path": "nested/index.md",
+      "url": "nested/index.html",
+      "content": "This is the index file inside a folder.\n\nThe heading should link here.\n",
+      "html": "<p>This is the index file inside a folder.</p>\n<p>The heading should link here.</p>\n",
+      "id": 4
+    },
+    {
+      "path": "nested/so_apple.md",
+      "url": "nested/so_apple.html",
+      "content": "# Apple\n\nSo delicious!\n\n",
+      "html": "<h1>Apple</h1>\n<p>So delicious!</p>\n",
+      "id": 5
+    },
+    {
+      "path": "nested/vegetables/others.md",
+      "url": "nested/vegetables/others.html",
+      "content": "This is getting out of hand...\n",
+      "html": "<p>This is getting out of hand…</p>\n",
+      "id": 6
+    },
+    {
+      "path": "tests/issue16.md",
+      "url": "tests/issue16.html",
+      "content": "Hello\n\n```\n'$KEY$' => $VALUE$,\n```\n\nThis breaks down the rendering?\n",
+      "html": "<p>Hello</p>\n<pre><code>'$KEY$' =&gt; $VALUE$,\n</code></pre>\n<p>This breaks down the rendering?</p>\n",
+      "id": 7
+    }
+  ]
+}
