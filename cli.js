@@ -60,33 +60,34 @@ sh.cd(output);
 const all = sh.find("*");
 
 const mds = all
-  .filter(f => f.match(mdR))
-  .sort(sortByPreferences.bind(null, preferences));
+  .filter(file => file.match(mdR))
+  .sort(sortByPreferences.bind(null, preferences))
+  .map(file => {
+    const content = sh.cat(file);
+    return {
+      path: file,
+      url: mdUrl(file),
+      content,
+      html: md2html(content)
+    };
+  });
 
-const contentsHtml = mds.map((file, i) => md2html(sh.cat(file)), []);
+const groupedMds = mds.reduce(
+  (grouped, value) => groupByPath(grouped, value.path),
+  []
+);
 
-const siteData = mds.reduce((arr, f, i) => {
-  // strip tags or else it doesn't seem to index correctly
-  const contentForJson = contentsHtml[i].replace(/(<([^>]+)>)/gi, "");
-  const pageDataArr = {
-    id: i,
-    url: mdUrl(f),
-    content: contentForJson
-  };
-  arr.push(pageDataArr);
-  return arr;
-}, []);
+mds.forEach(({ path, url, html }) => {
+  const navHtml = renderNav(generateIndexInfo(path, groupedMds, output));
+  const pageHtml = page(tpl, navHtml, html);
+  fs.writeFileSync(url, pageHtml);
+});
 
-const groupedMds = mds.reduce(groupByPath, []);
-
-mds
-  .map((f, i) => {
-    const navHtml = renderNav(generateIndexInfo(f, groupedMds, output));
-    const contentHtml = contentsHtml[i];
-    const siteDataString = JSON.stringify(siteData, null, 2);
-    return [f, page(tpl, navHtml, contentHtml, siteDataString)];
-  })
-  .forEach(([f, p]) => fs.writeFileSync(mdUrl(f), p));
+const contentsJSON = {
+  paths: groupedMds,
+  contents: mds.map((md, i) => ({ ...md, id: i }))
+};
+fs.writeFileSync(contentsFilename, JSON.stringify(contentsJSON, null, 2));
 
 sh.rm("-r", "**/*.md");
 
