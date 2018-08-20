@@ -1,18 +1,26 @@
-const url = require("url");
-const markdown = require("markdown-it")({
+import url from "url";
+import markdownIt, { MarkdownIt } from "markdown-it";
+import mdUrl from "./markdown-url-to-html";
+
+const markdown = markdownIt({
   html: true,
   linkify: true,
   typographer: true
 }).use(transformLocalMdLinksToHTML);
-const mdUrl = require("./markdown-url-to-html");
 
-function transformLocalMdLinksToHTML(md) {
+function transformLocalMdLinksToHTML(md: any) {
   const defaultLinkOpenRender =
     md.renderer.rules.link_open ||
-    function(tokens, idx, options, env, self) {
+    function(tokens: any, idx: any, options: any, env: any, self: any) {
       return self.renderToken(tokens, idx, options);
     };
-  md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
+  md.renderer.rules.link_open = function(
+    tokens: any,
+    idx: any,
+    options: any,
+    env: any,
+    self: any
+  ) {
     const a = tokens[idx];
     const href = a.attrGet("href");
     if (href) {
@@ -22,11 +30,11 @@ function transformLocalMdLinksToHTML(md) {
   };
 }
 
-module.exports = function md2html(contents) {
-  return markdown.render(contents.toString());
-};
+export default function md2html(contents: string) {
+  return markdown.render(contents);
+}
 
-function localMarkdownLinkToHtmlLink(hrefAttr) {
+function localMarkdownLinkToHtmlLink(hrefAttr: string) {
   const href = url.parse(hrefAttr);
   if (!href.protocol && !href.host) {
     // Local link

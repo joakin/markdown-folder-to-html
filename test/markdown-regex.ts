@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const mdR = require("../lib/markdown-regex");
+import mdR from "../lib/markdown-regex";
 
 test("matches files with md extension", t => {
   t.ok(mdR.test("banana.md"));

@@ -1,6 +1,6 @@
-const mdR = require("./markdown-regex");
+import mdR from "./markdown-regex";
 
-module.exports = function pathToText(file, outputPath) {
+export default function pathToText(file: string, outputPath?: string) {
   // Remove output folder if there is one
   return (
     (outputPath ? file.replace(outputPath + "/", "") : file)
@@ -12,4 +12,4 @@ module.exports = function pathToText(file, outputPath) {
       // Replace _ and - with spaces
       .replace(/_|-/g, " ")
   );
-};
+}

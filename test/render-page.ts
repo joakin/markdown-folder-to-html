@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const page = require("../lib/render-page");
+import page from "../lib/render-page";
 
 test("Changes instances of <!--NAV--> with the navigation html", t => {
   t.equal(

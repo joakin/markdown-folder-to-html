@@ -1,7 +1,8 @@
-const test = require("tape");
+import test from "tape";
 
-const groupByPath = require("../lib/group-by-path");
-const generateIndexInfo = require("../lib/generate-index-info");
+import groupByPath from "../lib/group-by-path";
+import generateIndexInfo from "../lib/generate-index-info";
+import { File, IndexFile } from "../lib/types";
 
 const files = [
   "index.md",
@@ -16,28 +17,27 @@ const grouped = files.reduce(groupByPath, []);
 const treeInfoFirstIsCurrent = generateIndexInfo(files[0], grouped);
 
 test("current file has active property to true", t => {
-  t.ok(treeInfoFirstIsCurrent[0].active);
+  const first = treeInfoFirstIsCurrent[0];
+  t.ok(first.type === "file" && first.value.active);
   t.end();
 });
 
 test("leaf file has text property that has been parsed", t => {
-  t.equal(treeInfoFirstIsCurrent[1].text, "banana");
+  const second = treeInfoFirstIsCurrent[1];
+  t.equal(second.type === "file" && second.value.text, "banana");
   t.end();
 });
 
-test("nested files are kept in a hierarchy as an array", t => {
+test("nested files are kept in a hierarchy", t => {
+  const third = treeInfoFirstIsCurrent[2];
+  t.equal(third.type, "dir", "The nested tree is a dir");
   t.equal(
-    treeInfoFirstIsCurrent[2].constructor,
-    Array,
-    "The nested tree is still an array"
-  );
-  t.equal(
-    treeInfoFirstIsCurrent[2][0],
+    third.type === "dir" && third.name,
     "nested",
     "Heading is in the first position"
   );
   t.equal(
-    treeInfoFirstIsCurrent[2][1].length,
+    third.type === "dir" && third.children.length,
     2,
     "Second position has array of children"
   );
@@ -78,8 +78,14 @@ test("whole structure matches (for reference)", t => {
 
 test("properly generates the hrefs as relative paths when current file is a nested one", t => {
   const treeInfoNestedIsCurrent = generateIndexInfo(files[2], grouped);
-  t.equal(treeInfoNestedIsCurrent[0].href, "../index.html");
-  t.equal(treeInfoNestedIsCurrent[1].href, "../1-banana.html");
-  t.equal(treeInfoNestedIsCurrent[2][1][1].href, "so_apple.html");
+  const first = treeInfoFirstIsCurrent[0];
+  const second = treeInfoFirstIsCurrent[1];
+  const third = treeInfoFirstIsCurrent[2];
+  t.equal(first.type === "file" && first.value.href, "../index.html");
+  t.equal(second.type === "file" && second.value.href, "../1-banana.html");
+  t.equal(
+    third.type === "dir" && (third.children[1] as File<IndexFile>).value.href,
+    "so_apple.html"
+  );
   t.end();
 });

@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const sortByPreferences = require("../lib/sort-by-preferences");
+import sortByPreferences from "../lib/sort-by-preferences";
 
 const sort = sortByPreferences.bind(null, ["index.md", "README.md"]);
 

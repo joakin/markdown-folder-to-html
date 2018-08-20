@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const group = require("../lib/group-by-path");
+import group from "../lib/group-by-path";
 
 test("given a group of paths, it groups them in arrays when reducing over them", t => {
   const paths = [

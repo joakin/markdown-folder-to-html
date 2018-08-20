@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const mdUrl2Html = require("../lib/markdown-url-to-html");
+import mdUrl2Html from "../lib/markdown-url-to-html";
 
 test("it changes the extension of a markdown url to reference an html file", t => {
   t.equal(mdUrl2Html("banana/split.md"), "banana/split.html");

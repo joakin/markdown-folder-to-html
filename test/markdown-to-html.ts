@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const md2html = require("../lib/markdown-to-html");
+import md2html from "../lib/markdown-to-html";
 
 test("transforms markdown to html", t => {
   t.equal(

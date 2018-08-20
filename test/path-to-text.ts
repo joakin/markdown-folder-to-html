@@ -1,6 +1,6 @@
-const test = require("tape");
+import test from "tape";
 
-const toText = require("../lib/path-to-text");
+import toText from "../lib/path-to-text";
 
 test("gets rid of the markdown extension", t => {
   t.equal(toText("banana.md"), "banana");

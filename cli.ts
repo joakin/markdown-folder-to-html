@@ -1,17 +1,18 @@
 #! /usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
-const sh = require("shelljs");
+import fs from "fs";
+import path from "path";
+import sh from "shelljs";
 
-const groupByPath = require("./lib/group-by-path");
-const sortByPreferences = require("./lib/sort-by-preferences");
-const mdUrl = require("./lib/markdown-url-to-html");
-const md2html = require("./lib/markdown-to-html");
-const renderNav = require("./lib/render-nav");
-const generateIndexInfo = require("./lib/generate-index-info");
-const page = require("./lib/render-page");
-const mdR = require("./lib/markdown-regex");
+import groupByPath from "./lib/group-by-path";
+import sortByPreferences from "./lib/sort-by-preferences";
+import mdUrl from "./lib/markdown-url-to-html";
+import md2html from "./lib/markdown-to-html";
+import renderNav from "./lib/render-nav";
+import generateIndexInfo from "./lib/generate-index-info";
+import page from "./lib/render-page";
+import mdR from "./lib/markdown-regex";
+import { FileTree, StringFile } from "./lib/types";
 
 const [docsFolder, ...argsRest] = process.argv.slice(2);
 
@@ -63,7 +64,7 @@ const mds = all
   .filter(file => file.match(mdR))
   .sort(sortByPreferences.bind(null, preferences))
   .map(file => {
-    const content = sh.cat(file);
+    const content = sh.cat(file).toString(); // The result is a weird not-string
     return {
       path: file,
       url: mdUrl(file),
@@ -72,13 +73,13 @@ const mds = all
     };
   });
 
-const groupedMds = mds.reduce(
-  (grouped, value) => groupByPath(grouped, value.path),
+const groupedMds: FileTree<StringFile> = mds.reduce(
+  (grouped: FileTree<StringFile>, value) => groupByPath(grouped, value.path),
   []
 );
 
 mds.forEach(({ path, url, html }) => {
-  const navHtml = renderNav(generateIndexInfo(path, groupedMds, output));
+  const navHtml = renderNav(generateIndexInfo(path, groupedMds));
   const pageHtml = page(tpl, navHtml, html);
   fs.writeFileSync(url, pageHtml);
 });
@@ -91,7 +92,7 @@ fs.writeFileSync(contentsFilename, JSON.stringify(contentsJSON, null, 2));
 
 sh.rm("-r", "**/*.md");
 
-function usage(error) {
+function usage(error: boolean) {
   console.log(
     `
 Usage:
