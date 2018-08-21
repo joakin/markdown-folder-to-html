@@ -17,7 +17,8 @@ import { FileTree, StringFile } from "./lib/types";
 const [docsFolder, ...argsRest] = process.argv.slice(2);
 
 // Default parameters
-const folder = docsFolder || "docs";
+const defaultFolder = "docs";
+const folder = docsFolder || defaultFolder;
 const output = `_${folder}`;
 const templateFilename = "template.html";
 const contentsFilename = "contents.json";
@@ -41,7 +42,7 @@ if (!sh.test("-e", folder)) {
 // Define template html, user's first, otherwise default
 let template = path.join(folder, templateFilename);
 if (!sh.test("-e", template)) {
-  template = path.join(__dirname, folder, templateFilename);
+  template = path.join(__dirname, defaultFolder, templateFilename);
 }
 const tpl = sh.cat(template);
 
