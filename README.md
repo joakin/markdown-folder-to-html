@@ -94,9 +94,24 @@ the original markup, the HTML, the original path and the transformed URL:
 ```json
 {
   "paths": [
-    "index.md",
-    "1-banana.md",
-    ["a-folder", ["a-folder/with-a-post.md"]]
+    {
+      "type": "file",
+      "value": "index.md"
+    },
+    {
+      "type": "file",
+      "value": "1-banana.md"
+    },
+    {
+      "type": "dir",
+      "name": "a-folder",
+      "children": [
+        {
+          "type": "file",
+          "value": "a-folder/with-a-post.md"
+        }
+      ]
+    }
     //...
   ],
   "contents": [
@@ -135,15 +150,15 @@ After quite a lot of research, I couldn't find a simple and straightforward
 solution to generating html docs from a folder full of markdown files that
 relied on simple concepts. That is what this tool does:
 
-* Simply copy everything over, and translate .md files to .html with a pure HTML
+- Simply copy everything over, and translate .md files to .html with a pure HTML
   layout (feel free to add CSS, or JS, or precompile those assets if you need
   to)
-* .md links are rewritten to .html so that you can reference files with their
+- .md links are rewritten to .html so that you can reference files with their
   real path on your markdown files and they'll work on the HTML version too.
-* Provide sensible defaults and zero-configuration. JUST WORK.
-* Use know abstraction, like the file system, pure HTML, etc
+- Provide sensible defaults and zero-configuration. JUST WORK.
+- Use know abstraction, like the file system, pure HTML, etc
 
 ## Links
 
-* https://github.com/joakin/markdown-folder-to-html
-* https://npmjs.org/package/markdown-folder-to-html
+- https://github.com/joakin/markdown-folder-to-html
+- https://npmjs.org/package/markdown-folder-to-html
