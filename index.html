@@ -540,9 +540,24 @@ folder. It contains the hierarchical paths of the files, and the contents with
 the original markup, the HTML, the original path and the transformed URL:</p>
 <pre><code class="language-json">{
   &quot;paths&quot;: [
-    &quot;index.md&quot;,
-    &quot;1-banana.md&quot;,
-    [&quot;a-folder&quot;, [&quot;a-folder/with-a-post.md&quot;]]
+    {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;value&quot;: &quot;index.md&quot;
+    },
+    {
+      &quot;type&quot;: &quot;file&quot;,
+      &quot;value&quot;: &quot;1-banana.md&quot;
+    },
+    {
+      &quot;type&quot;: &quot;dir&quot;,
+      &quot;name&quot;: &quot;a-folder&quot;,
+      &quot;children&quot;: [
+        {
+          &quot;type&quot;: &quot;file&quot;,
+          &quot;value&quot;: &quot;a-folder/with-a-post.md&quot;
+        }
+      ]
+    }
     //...
   ],
   &quot;contents&quot;: [
