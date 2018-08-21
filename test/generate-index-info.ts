@@ -48,39 +48,52 @@ test("whole structure matches (for reference)", t => {
   // Verify whole structure
   t.deepEqual(treeInfoFirstIsCurrent, [
     {
-      active: true,
-      href: "index.html",
-      text: "index"
+      type: "file",
+      value: {
+        active: true,
+        href: "index.html",
+        text: "index"
+      }
     },
     {
-      active: false,
-      href: "1-banana.html",
-      text: "banana"
+      type: "file",
+      value: {
+        active: false,
+        href: "1-banana.html",
+        text: "banana"
+      }
     },
-    [
-      "nested",
-      [
+    {
+      type: "dir",
+      name: "nested",
+      children: [
         {
-          active: false,
-          href: "nested/another-banana.html",
-          text: "another banana"
+          type: "file",
+          value: {
+            active: false,
+            href: "nested/another-banana.html",
+            text: "another banana"
+          }
         },
         {
-          active: false,
-          href: "nested/so_apple.html",
-          text: "so apple"
+          type: "file",
+          value: {
+            active: false,
+            href: "nested/so_apple.html",
+            text: "so apple"
+          }
         }
       ]
-    ]
+    }
   ]);
   t.end();
 });
 
 test("properly generates the hrefs as relative paths when current file is a nested one", t => {
   const treeInfoNestedIsCurrent = generateIndexInfo(files[2], grouped);
-  const first = treeInfoFirstIsCurrent[0];
-  const second = treeInfoFirstIsCurrent[1];
-  const third = treeInfoFirstIsCurrent[2];
+  const first = treeInfoNestedIsCurrent[0];
+  const second = treeInfoNestedIsCurrent[1];
+  const third = treeInfoNestedIsCurrent[2];
   t.equal(first.type === "file" && first.value.href, "../index.html");
   t.equal(second.type === "file" && second.value.href, "../1-banana.html");
   t.equal(

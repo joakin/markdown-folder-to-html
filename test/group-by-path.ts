@@ -12,16 +12,26 @@ test("given a group of paths, it groups them in arrays when reducing over them",
   ];
 
   const groupedPaths = [
-    "index",
-    "banana",
-    [
-      "nested",
-      [
-        "nested/banana",
-        "nested/apple",
-        ["super nested", ["nested/super nested/thing"]]
+    { type: "file", value: "index" },
+    { type: "file", value: "banana" },
+    {
+      type: "dir",
+      name: "nested",
+      children: [
+        { type: "file", value: "nested/banana" },
+        { type: "file", value: "nested/apple" },
+        {
+          type: "dir",
+          name: "super nested",
+          children: [
+            {
+              type: "file",
+              value: "nested/super nested/thing"
+            }
+          ]
+        }
       ]
-    ]
+    }
   ];
 
   t.deepEqual(paths.reduce(group, []), groupedPaths);

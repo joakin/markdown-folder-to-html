@@ -7,11 +7,12 @@
     "markdown-folder-to-html": "./cli.js"
   },
   "scripts": {
-    "start": "tsc && node cli.js",
+    "start": "npm run compile && node cli.js",
+    "compile": "tsc",
     "build": "cp README.md docs/index.md && npm start",
     "deploy": "npm run build && gh-pages -d _docs",
     "format": "prettier --write '{lib,test}/**/*.ts' ./cli.ts",
-    "test": "tape test/*.js | tap-dot",
+    "test": "npm run compile && tape test/*.js | tap-dot",
     "docs": "markdown-folder-to-html"
   },
   "repository": {
