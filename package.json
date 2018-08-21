@@ -11,7 +11,7 @@
     "compile": "tsc",
     "build": "cp README.md docs/index.md && npm start",
     "deploy": "npm run build && gh-pages -d _docs",
-    "prepublish": "npm run test && npm run deploy",
+    "prepare-to-publish": "npm run test && npm run deploy",
     "format": "prettier --write '{lib,test}/**/*.ts' ./cli.ts",
     "test": "npm run compile && tape test/*.js | tap-dot",
     "docs": "markdown-folder-to-html"
