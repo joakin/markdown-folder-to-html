@@ -1,6 +1,6 @@
 {
   "name": "markdown-folder-to-html",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "Convert a folder with files and markdown documents to an HTML site",
   "main": "cli.js",
   "bin": {
