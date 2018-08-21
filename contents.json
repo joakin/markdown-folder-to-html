@@ -1,33 +1,61 @@
 {
   "paths": [
-    "index.md",
-    "1-banana.md",
-    [
-      "a-folder",
-      [
-        "a-folder/with-a-post.md"
+    {
+      "type": "file",
+      "value": "index.md"
+    },
+    {
+      "type": "file",
+      "value": "1-banana.md"
+    },
+    {
+      "type": "dir",
+      "name": "a-folder",
+      "children": [
+        {
+          "type": "file",
+          "value": "a-folder/with-a-post.md"
+        }
       ]
-    ],
-    [
-      "nested",
-      [
-        "nested/another-banana.md",
-        "nested/index.md",
-        "nested/so_apple.md",
-        [
-          "vegetables",
-          [
-            "nested/vegetables/others.md"
+    },
+    {
+      "type": "dir",
+      "name": "nested",
+      "children": [
+        {
+          "type": "file",
+          "value": "nested/another-banana.md"
+        },
+        {
+          "type": "file",
+          "value": "nested/index.md"
+        },
+        {
+          "type": "file",
+          "value": "nested/so_apple.md"
+        },
+        {
+          "type": "dir",
+          "name": "vegetables",
+          "children": [
+            {
+              "type": "file",
+              "value": "nested/vegetables/others.md"
+            }
           ]
-        ]
+        }
       ]
-    ],
-    [
-      "tests",
-      [
-        "tests/issue16.md"
+    },
+    {
+      "type": "dir",
+      "name": "tests",
+      "children": [
+        {
+          "type": "file",
+          "value": "tests/issue16.md"
+        }
       ]
-    ]
+    }
   ],
   "contents": [
     {
