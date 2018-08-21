@@ -1,3 +1,7 @@
+# 2.0.1
+
+- Fix #10 (Error when using custom name folder without a template file)
+
 # 2.0.0
 
 - Update dependencies
