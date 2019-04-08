@@ -1,5 +1,5 @@
 import url from "url";
-import markdownIt, { MarkdownIt } from "markdown-it";
+import markdownIt from "markdown-it";
 import mdUrl from "./markdown-url-to-html";
 
 const markdown = markdownIt({

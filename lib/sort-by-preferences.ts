@@ -13,8 +13,8 @@ export default function sortByPrecedence(
   return aPref && bPref
     ? strSort(a, b)
     : aPref
-      ? -1
-      : bPref
-        ? 1
-        : strSort(a, b);
+    ? -1
+    : bPref
+    ? 1
+    : strSort(a, b);
 }

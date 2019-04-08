@@ -7,35 +7,33 @@ export default function renderNav(
 ): string {
   return `<ul>
 ${groupedFiles
-    .map(f => {
-      if (f.type === "dir") {
-        const childrenNav = renderNav(f.children, level + 1);
-        const indexFile = getIndexFile(f.children);
-        // Heading with link if there is an index file in the folder
-        if (indexFile) {
-          const link = renderActive(
-            f.name,
-            indexFile.value.href,
-            indexFile.value.active
-          );
-          return `<li class="heading">${link}</li>\n${childrenNav}`;
-        }
-        // Heading without link
-        return `<li class="heading"><span>${
-          f.name
-        }</span></li>\n${childrenNav}`;
-      } else if (f.type === "file") {
-        //  Leaf
-        const { text, href, active } = f.value;
-
-        // Skip index files on nested levels since the Heading links to them.
-        if (level > 0 && text && text.toLowerCase() === "index") return;
-
-        return `<li>${renderActive(text, href, active)}</li>`;
+  .map(f => {
+    if (f.type === "dir") {
+      const childrenNav = renderNav(f.children, level + 1);
+      const indexFile = getIndexFile(f.children);
+      // Heading with link if there is an index file in the folder
+      if (indexFile) {
+        const link = renderActive(
+          f.name,
+          indexFile.value.href,
+          indexFile.value.active
+        );
+        return `<li class="heading">${link}</li>\n${childrenNav}`;
       }
-      return assertNever(f);
-    })
-    .join("\n")}
+      // Heading without link
+      return `<li class="heading"><span>${f.name}</span></li>\n${childrenNav}`;
+    } else if (f.type === "file") {
+      //  Leaf
+      const { text, href, active } = f.value;
+
+      // Skip index files on nested levels since the Heading links to them.
+      if (level > 0 && text && text.toLowerCase() === "index") return;
+
+      return `<li>${renderActive(text, href, active)}</li>`;
+    }
+    return assertNever(f);
+  })
+  .join("\n")}
 </ul>`;
 }
 
