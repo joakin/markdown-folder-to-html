@@ -14,15 +14,15 @@ import page from "./lib/render-page";
 import mdR from "./lib/markdown-regex";
 import { FileTree, StringFile } from "./lib/types";
 
-const [docsFolder, ...argsRest] = process.argv.slice(2);
+const [inputFolder, outputFolder, ...argsRest] = process.argv.slice(2);
 
 // Default parameters
 const defaultFolder = "docs";
-const folder = docsFolder || defaultFolder;
-const output = `_${folder}`;
+const folder = inputFolder || defaultFolder;
+const output = outputFolder || `_${folder}`;
 const templateFilename = "template.html";
 const contentsFilename = "contents.json";
-const preferences = ["index.md", "README.md"];
+const preferences = ["index.md", "README.md", "readme.md"];
 
 // Guards
 // Bail out if more than 1 args
@@ -59,7 +59,7 @@ sh.cp("-R", folder + "/*", output);
 // 4. Parse files and generate output html files
 
 sh.cd(output);
-const all = sh.find("*");
+const all = sh.find(".");
 
 const mds = all
   .filter(file => file.match(mdR))
@@ -100,7 +100,7 @@ Usage:
 
   markdown-folder-to-html [input-folder]
 
-    input-folder [optional] defaults to \`docs\`
+    input-folder output-folder [optional] defaults to \`docs\`
   `
   );
   process.exit(error ? 1 : 0);
