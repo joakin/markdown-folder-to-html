@@ -61,8 +61,8 @@ sh.cp("-R", folder + "/*", output);
 sh.cd(output);
 const all = sh.find("*");
 
-const mds = all
-  .filter(file => file.match(mdR))
+function fileSelector(sel:string) { return Array.from(all)
+  .filter(file => file.includes(sel))
   .sort(sortByPreferences.bind(null, preferences))
   .map(file => {
     const content = sh.cat(file).toString(); // The result is a weird not-string
@@ -73,20 +73,24 @@ const mds = all
       html: md2html(content)
     };
   });
+}
 
-const groupedMds: FileTree<StringFile> = mds.reduce(
+const mds = fileSelector(".md")
+const allFiles = fileSelector(".")
+
+const groupedFiles: FileTree<StringFile> = allFiles.reduce(
   (grouped: FileTree<StringFile>, value) => groupByPath(grouped, value.path),
   []
 );
 
 mds.forEach(({ path, url, html }) => {
-  const navHtml = renderNav(generateIndexInfo(path, groupedMds));
+  const navHtml = renderNav(generateIndexInfo(path, groupedFiles));
   const pageHtml = page(tpl, navHtml, html);
   fs.writeFileSync(url, pageHtml);
 });
 
 const contentsJSON = {
-  paths: groupedMds,
+  paths: groupedFiles,
   contents: mds.map((md, i) => ({ ...md, id: i }))
 };
 fs.writeFileSync(contentsFilename, JSON.stringify(contentsJSON, null, 2));
