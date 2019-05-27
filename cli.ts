@@ -19,7 +19,12 @@ const [docsFolder, ...argsRest] = process.argv.slice(2);
 // Default parameters
 const defaultFolder = "docs";
 const folder = docsFolder || defaultFolder;
-const output = `_${folder}`;
+
+const segments = folder.split(path.sep);
+const currentIndex = segments.length - 1;
+const outputFolder = segments[currentIndex];
+
+const output = `_${outputFolder}`;
 const templateFilename = "template.html";
 const contentsFilename = "contents.json";
 const preferences = ["index.md", "README.md"];

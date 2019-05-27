@@ -328,6 +328,14 @@
       color: #000;
     }
 
+    #menu li.heading ul {
+      display: none;
+    }
+
+    #menu li.heading.show > ul {
+      display: block;
+    }
+
     #menu li.heading>* {
       padding: 0.5em;
       display: block;
@@ -460,7 +468,8 @@
 
       var layout = document.getElementById('layout'),
         menu = document.getElementById('menu'),
-        menuLink = document.getElementById('menuLink');
+        menuLink = document.getElementById('menuLink'),
+        headings = document.getElementsByClassName('heading');
 
       function toggleClass(element, className) {
         var classes = element.className.split(/\s+/),
@@ -489,6 +498,19 @@
         toggleClass(menu, active);
         toggleClass(menuLink, active);
       };
+
+      for (let index = 0; index < headings.length; index++) {
+        const li = headings[index];
+        const headers = li.getElementsByClassName('header-link');
+
+        for (let headerIndex = 0; headerIndex < headers.length; headerIndex++) {
+          const header = headers[headerIndex];          
+          
+          header.onclick = function() {
+          li.classList.toggle('show');
+        };
+        }
+      }
 
     }(this, this.document));
   </script>
