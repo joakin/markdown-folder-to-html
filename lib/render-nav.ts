@@ -18,10 +18,10 @@ ${groupedFiles
           indexFile.value.href,
           indexFile.value.active
         );
-        return `<li class="heading">${link}</li>\n${childrenNav}`;
+        return `<li class="heading">${link}${childrenNav}</li>\n`;
       }
       // Heading without link
-      return `<li class="heading"><span>${f.name}</span></li>\n${childrenNav}`;
+      return `<li class="heading"><span>${f.name}</span>${childrenNav}</li>\n`;
     } else if (f.type === "file") {
       //  Leaf
       const { text, href, active } = f.value;
