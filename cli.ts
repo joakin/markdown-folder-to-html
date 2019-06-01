@@ -18,8 +18,8 @@ const [docsFolder, ...argsRest] = process.argv.slice(2);
 
 // Default parameters
 const defaultFolder = "docs";
-const folder = docsFolder || defaultFolder;
-const output = `_${folder}`;
+const folder = path.resolve(docsFolder || defaultFolder);
+const output = path.resolve(folder, "..", `_${path.basename(folder)}`);
 const templateFilename = "template.html";
 const contentsFilename = "contents.json";
 const preferences = ["index.md", "README.md"];
@@ -33,9 +33,7 @@ if (argsRest && argsRest.length > 0) {
 
 // Bail out if the folder doesn't exist
 if (!fs.existsSync(folder)) {
-  console.error(
-    `Folder ${folder} not found at ${path.join(process.cwd(), folder)}`
-  );
+  console.error(`Folder ${folder} not found.`);
   usage(true);
 }
 
@@ -48,8 +46,8 @@ const tpl = fs.readFileSync(template, "utf8");
 
 // Prepare output folder (create, clean, copy sources)
 fs.mkdirSync(output, { recursive: true });
-sh.rm("-rf", output + "/*");
-sh.cp("-R", folder + "/*", output);
+sh.rm("-rf", path.join(output, "*"));
+sh.cp("-R", path.join(folder, "*"), output);
 
 // Start processing. Outline:
 //
