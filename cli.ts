@@ -32,7 +32,7 @@ if (argsRest && argsRest.length > 0) {
 }
 
 // Bail out if the folder doesn't exist
-if (!sh.test("-e", folder)) {
+if (!fs.existsSync(folder)) {
   console.error(
     `Folder ${folder} not found at ${path.join(process.cwd(), folder)}`
   );
@@ -41,13 +41,13 @@ if (!sh.test("-e", folder)) {
 
 // Define template html, user's first, otherwise default
 let template = path.join(folder, templateFilename);
-if (!sh.test("-e", template)) {
+if (!fs.existsSync(template)) {
   template = path.join(__dirname, defaultFolder, templateFilename);
 }
-const tpl = sh.cat(template);
+const tpl = fs.readFileSync(template, "utf8");
 
 // Prepare output folder (create, clean, copy sources)
-sh.mkdir("-p", output);
+fs.mkdirSync(output, { recursive: true });
 sh.rm("-rf", output + "/*");
 sh.cp("-R", folder + "/*", output);
 
