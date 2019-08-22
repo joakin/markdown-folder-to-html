@@ -38,10 +38,12 @@
   "homepage": "https://github.com/joakin/markdown-folder-to-html#readme",
   "dependencies": {
     "markdown-it": "^8.4.2",
+    "markdown-it-anchor": "^5.2.4",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "@types/markdown-it": "0.0.7",
+    "@types/markdown-it-anchor": "^4.0.3",
     "@types/node": "^10.14.4",
     "@types/shelljs": "^0.8.4",
     "@types/tape": "^4.2.33",

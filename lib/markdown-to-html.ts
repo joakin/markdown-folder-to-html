@@ -1,12 +1,14 @@
 import url from "url";
 import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
 import mdUrl from "./markdown-url-to-html";
 
 const markdown = markdownIt({
   html: true,
   linkify: true,
   typographer: true
-}).use(transformLocalMdLinksToHTML);
+}).use(transformLocalMdLinksToHTML)
+  .use(markdownItAnchor);
 
 function transformLocalMdLinksToHTML(md: any) {
   const defaultLinkOpenRender =
