@@ -1,3 +1,14 @@
+# 2.3.0
+
+- Added anchors to headings
+- Upgraded dependencies
+
+# 2.2.0
+
+- Improve default menu link button color (made it white)
+- Make path handling more robust
+- Use less shelljs where possible
+
 # 2.1.1
 
 - Version shenanigans with git and npm, no meaningful changes
