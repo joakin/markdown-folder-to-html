@@ -247,9 +247,9 @@
       }
 
       /*
-    The `#menu` `<div>` is the parent `<div>` that contains the menu that
-    appears on the left side of the page.
-    */
+      The `#menu` `<div>` is the parent `<div>` that contains the menu that
+      appears on the left side of the page.
+      */
 
       #menu {
         margin-left: -250px;
@@ -340,9 +340,9 @@
       /* -- Dynamic Button For Responsive Menu -------------------------------------*/
 
       /*
-    `.menu-link` represents the responsive menu toggle that shows/hides on
-    small screens.
-    */
+      `.menu-link` represents the responsive menu toggle that shows/hides on
+      small screens.
+      */
 
       .menu-link {
         position: fixed;
@@ -420,14 +420,41 @@
 
       @media (max-width: 48em) {
         /* Only apply this when the window is small. Otherwise, the following case results in extra padding on the left:
-       * Make the window small.
-       * Tap the menu to trigger the active state.
-       * Make the window large again.
-       */
+         * Make the window small.
+         * Tap the menu to trigger the active state.
+         * Make the window large again.
+         */
         #layout.active {
           position: relative;
           left: 250px;
         }
+      }
+
+      /* Heading anchors and permalinks */
+      h1[id],
+      h2[id],
+      h3[id],
+      h4[id],
+      h5[id],
+      h6[id] {
+        position: relative;
+      }
+      .heading-anchor-permalink {
+        /* Position the permalink to the left of the title */
+        position: absolute;
+        right: 100%;
+        /* Add some spacing as padding to not lose the hover */
+        padding-right: 0.6rem;
+        /* Make it only visible on heading hover, see below */
+        opacity: 0;
+      }
+      h1[id]:hover .heading-anchor-permalink,
+      h2[id]:hover .heading-anchor-permalink,
+      h3[id]:hover .heading-anchor-permalink,
+      h4[id]:hover .heading-anchor-permalink,
+      h5[id]:hover .heading-anchor-permalink,
+      h6[id]:hover .heading-anchor-permalink {
+        opacity: 0.5;
       }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -466,12 +493,12 @@
 </ul>
       </nav>
       <article id="main" class="content">
-        <h1>markdown-folder-to-html</h1>
+        <h1 id="markdown-folder-to-html">markdown-folder-to-html <a class="heading-anchor-permalink" href="#markdown-folder-to-html" aria-hidden="true">#</a></h1>
 <p>Simplest zero-config way to generate html docs from markdown files.</p>
 <p>Copies <code>docs</code> to <code>_docs</code> and compiles markdown files to html using
 <code>docs/template.html</code>.</p>
 <p><a href="http://chimeces.com/markdown-folder-to-html/">Live example at chimeces.com/markdown-folder-to-html</a></p>
-<h2>Usage</h2>
+<h2 id="usage">Usage <a class="heading-anchor-permalink" href="#usage" aria-hidden="true">#</a></h2>
 <p>Requires node.js &gt;= 6</p>
 <p>Given we have some docs:</p>
 <ol>
@@ -479,19 +506,19 @@
 <li>Add some docs <code>echo &quot;**Banana**&quot; &gt; docs/banana.md</code></li>
 <li>Add some docs <code>echo &quot;**Apple**&quot; &gt; docs/index.md</code></li>
 </ol>
-<h3>In a project</h3>
+<h3 id="in-a-project">In a project <a class="heading-anchor-permalink" href="#in-a-project" aria-hidden="true">#</a></h3>
 <ol>
 <li>Install <code>npm install -D markdown-folder-to-html</code></li>
 <li>Add <code>docs</code> to npm scripts <code>{&quot;scripts&quot;: {&quot;docs&quot;: &quot;markdown-folder-to-html&quot;}}</code></li>
 <li>🎉 <code>npm run docs</code> and <code>open _docs/index.html</code></li>
 </ol>
-<h3>Globally</h3>
+<h3 id="globally">Globally <a class="heading-anchor-permalink" href="#globally" aria-hidden="true">#</a></h3>
 <ol>
 <li>Install <code>npm install -g markdown-folder-to-html</code></li>
 <li>🎉 <code>markdown-folder-to-html</code> and <code>open _docs/index.html</code></li>
 </ol>
-<h2>Conventions</h2>
-<h3>Input/Output folder</h3>
+<h2 id="conventions">Conventions <a class="heading-anchor-permalink" href="#conventions" aria-hidden="true">#</a></h2>
+<h3 id="input%2Foutput-folder">Input/Output folder <a class="heading-anchor-permalink" href="#input%2Foutput-folder" aria-hidden="true">#</a></h3>
 <p>You can pass an argument to the cli to change the input folder (by default
 <code>docs</code>). That will change the output folder too to <code>_FOLDERNAME</code> (by default
 <code>_docs</code>).</p>
@@ -499,7 +526,7 @@
 # Outputs site to _documentation
 </code></pre>
 <p>If you want to change the output folder name, just <code>mv</code> it to something else.</p>
-<h3>Custom HTML</h3>
+<h3 id="custom-html">Custom HTML <a class="heading-anchor-permalink" href="#custom-html" aria-hidden="true">#</a></h3>
 <p>The default HTML is extremely basic, but
 <a href="https://github.com/joakin/markdown-folder-to-html/blob/master/docs/template.html">simple and pretty</a>,
 and is the one used in the docs.</p>
@@ -519,7 +546,7 @@ and is the one used in the docs.</p>
 <p>Create your own in your docs folder <code>docs/template.html</code> to use that one
 instead. Feel free to include styles inline or CSS files (since all will be
 copied to output).</p>
-<h3>Order</h3>
+<h3 id="order">Order <a class="heading-anchor-permalink" href="#order" aria-hidden="true">#</a></h3>
 <p>You may have noticed that files are sorted alphabetically. There’s a little
 trick where if you name your folders/files with XX-folder/XX-file (XX being a
 number of 1+ digits) those numbers won’t show up on the index of the pages,
@@ -527,7 +554,7 @@ giving you the ability to organize files both in the filesystem and in the
 generated HTML site.</p>
 <p>Also, the root <code>index.md</code> file will always show up at the beginning of the
 index.</p>
-<h3>Site contents and information for custom templates</h3>
+<h3 id="site-contents-and-information-for-custom-templates">Site contents and information for custom templates <a class="heading-anchor-permalink" href="#site-contents-and-information-for-custom-templates" aria-hidden="true">#</a></h3>
 <p>If you want to do things with a custom template HTML you need the information of
 the site. This will allow you to do things in the front-end UI, like adding
 search to the static site with lunrjs or other things like adding buttons for
@@ -583,7 +610,7 @@ it, processing the contents to adapt them for search, looking for the
 previous/next articles to link to them, etc.</p>
 <p>If you have working examples of a template that does something interesting,
 please let me know and I’ll list them here!</p>
-<h2>Why</h2>
+<h2 id="why">Why <a class="heading-anchor-permalink" href="#why" aria-hidden="true">#</a></h2>
 <p>After quite a lot of research, I couldn’t find a simple and straightforward
 solution to generating html docs from a folder full of markdown files that
 relied on simple concepts. That is what this tool does:</p>
@@ -596,7 +623,7 @@ real path on your markdown files and they’ll work on the HTML version too.</li
 <li>Provide sensible defaults and zero-configuration. JUST WORK.</li>
 <li>Use know abstraction, like the file system, pure HTML, etc</li>
 </ul>
-<h2>Links</h2>
+<h2 id="links">Links <a class="heading-anchor-permalink" href="#links" aria-hidden="true">#</a></h2>
 <ul>
 <li><a href="https://github.com/joakin/markdown-folder-to-html">https://github.com/joakin/markdown-folder-to-html</a></li>
 <li><a href="https://npmjs.org/package/markdown-folder-to-html">https://npmjs.org/package/markdown-folder-to-html</a></li>
