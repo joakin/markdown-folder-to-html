@@ -7,8 +7,13 @@ const markdown = markdownIt({
   html: true,
   linkify: true,
   typographer: true
-}).use(transformLocalMdLinksToHTML)
-  .use(markdownItAnchor);
+})
+  .use(transformLocalMdLinksToHTML)
+  .use(markdownItAnchor, {
+    permalink: true,
+    permalinkClass: "heading-anchor-permalink",
+    permalinkSymbol: "#"
+  });
 
 function transformLocalMdLinksToHTML(md: any) {
   const defaultLinkOpenRender =

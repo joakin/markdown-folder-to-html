@@ -21,7 +21,7 @@ test("transforms local markdown links to html links", t => {
 test("transforms heading text to ids for anchor links", t => {
   t.equal(
     md2html("# Heading 1"),
-    '<h1 id="heading-1">Heading 1</h1>\n'
+    '<h1 id="heading-1">Heading 1 <a class="heading-anchor-permalink" href="#heading-1" aria-hidden="true">#</a></h1>\n'
   );
   t.end();
 });
