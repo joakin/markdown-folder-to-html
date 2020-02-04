@@ -1,3 +1,7 @@
+# 2.4.0
+
+- Don't show the menu and menu link on print mode
+
 # 2.3.0
 
 - Added anchors to headings
