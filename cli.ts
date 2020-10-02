@@ -14,12 +14,12 @@ import page from "./lib/render-page";
 import mdR from "./lib/markdown-regex";
 import { FileTree, StringFile } from "./lib/types";
 
-const [docsFolder, ...argsRest] = process.argv.slice(2);
+const [docsFolder, targetFolder, ...argsRest] = process.argv.slice(2);
 
 // Default parameters
 const defaultFolder = "docs";
 const folder = path.resolve(docsFolder || defaultFolder);
-const output = path.resolve(folder, "..", `_${path.basename(folder)}`);
+const output = (targetFolder || path.resolve(folder, "..", `_${path.basename(folder)}`));
 const templateFilename = "template.html";
 const contentsFilename = "contents.json";
 const preferences = ["index.md", "README.md"];
@@ -31,7 +31,7 @@ if (argsRest && argsRest.length > 0) {
   usage(true);
 }
 
-// Bail out if the folder doesn't exist
+// Bail out if the input folder doesn't exist
 if (!fs.existsSync(folder)) {
   console.error(`Folder ${folder} not found.`);
   usage(true);

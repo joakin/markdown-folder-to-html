@@ -41,7 +41,9 @@ markdown-folder-to-html documentation
 # Outputs site to _documentation
 ```
 
-If you want to change the output folder name, just `mv` it to something else.
+If you want to change the output folder name, use `markdown-folder-to-html from_folder to_folder`.
+
+The `from_folder` is required if you want to set a `to_folder`.
 
 ### Custom HTML
 
